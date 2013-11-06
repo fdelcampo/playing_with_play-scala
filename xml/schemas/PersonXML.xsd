@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:tdu="http://tdu.inria.cl/person" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://tdu.inria.cl/person">
+  
+  <xs:element name="PersonXML" type="tdu:personXMLType"/>
+  
+  <xs:complexType name="personXMLType">
+      <xs:sequence>
+        <xs:element maxOccurs="1" minOccurs="1" name="id" type="xs:long"/>
+        <xs:element name="firstname" type="xs:string"/>
+        <xs:element name="primarylastname" type="xs:string"/>
+        <xs:element name="secondlastname" type="xs:string"/>
+        <xs:element maxOccurs="1" minOccurs="1" name="run" type="tdu:runType"/>
+        <xs:element name="genre" type="xs:string"/>
+        <xs:element maxOccurs="1" minOccurs="1" name="birth" type="xs:date"/>
+        <xs:element maxOccurs="1" minOccurs="1" name="nationality" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+
+
+	<xs:complexType name="runType">
+		<xs:annotation>
+ 			<xs:documentation>Nombre Esquema: Run Tipo Esquema: Basal Descripcion: Este esquema define los elementos que componen el elemento identificador para los ciudadanos de Chile, este identificador es el Rol Unico Nacional (RUN). Descripción Campos: - numero: corresponde a un número entero positivo. - dv: corresponde al dígito verificador, pudiendo tomar un valor entre el 0-9 o el caracter "K". Observaciones: * Este esquema se utiliza indistamente para RUN y RUT (Rol único Tributario).</xs:documentation>
+ 		</xs:annotation>
+	    <xs:sequence>
+    		<xs:element maxOccurs="1" minOccurs="1" name="Number">
+    			<xs:simpleType>
+	    			<xs:restriction base="xs:positiveInteger">
+    					<xs:maxInclusive value="99999999"/>
+    				</xs:restriction>
+    			</xs:simpleType>
+    		</xs:element>
+    		<xs:element maxOccurs="1" minOccurs="1" name="Dv">
+	    		<xs:simpleType>
+    				<xs:restriction base="xs:token">
+    					<xs:pattern value="(\d|k|K)"/>
+    				</xs:restriction>
+	    		</xs:simpleType>
+    		</xs:element>
+    	</xs:sequence>
+	</xs:complexType>
+</xs:schema>

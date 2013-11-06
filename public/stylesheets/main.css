@@ -1,0 +1,41 @@
+
+html, body {
+    background-color: #eee;
+}
+body {
+    padding-top: 20px;
+}
+
+.topbar p {
+    color: #888;
+}
+
+.form-signin {
+	max-width: 221px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.navbar-header {
+	height: 40px;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	background-image: url("../images/glyphicons-halflings.png") !important;
+}
+
+.icon-white, .nav-pills>.active>a>[class^="icon-"], .nav-pills>.active>a>[class*=" icon-"], .nav-list>.active>a>[class^="icon-"], .nav-list>.active>a>[class*=" icon-"], .navbar-inverse .nav>.active>a>[class^="icon-"], .navbar-inverse .nav>.active>a>[class*=" icon-"], .dropdown-menu>li>a:hover>[class^="icon-"], .dropdown-menu>li>a:focus>[class^="icon-"], .dropdown-menu>li>a:hover>[class*=" icon-"], .dropdown-menu>li>a:focus>[class*=" icon-"], .dropdown-menu>.active>a>[class^="icon-"], .dropdown-menu>.active>a>[class*=" icon-"], .dropdown-submenu:hover>a>[class^="icon-"], .dropdown-submenu:focus>a>[class^="icon-"], .dropdown-submenu:hover>a>[class*=" icon-"], .dropdown-submenu:focus>a>[class*=" icon-"] {
+	background-image: url("../images/glyphicons-halflings-white.png") !important;
+}
+
+
+label.error {
+	color: #b94a48;
+}
+label.valid {
+	color: #468847;
+}
+
+.modal-body {
+	max-height: 650px !important;
+}

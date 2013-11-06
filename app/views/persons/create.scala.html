@@ -1,0 +1,103 @@
+@(form: Form[Person], genres: Seq[String], nationalities: Seq[String])(implicit flash: Flash)
+
+
+	
+	<form id="form-person" action="@routes.Persons.addPerson" method="POST" class="form-horizontal">
+	
+		@form.globalError.map { error =>
+		    <div class="alert alert-error">
+		    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		        @error.message
+		    </div>
+		}
+		@flash.get("success").map { message =>
+        	<div class="alert alert-success">
+        		<button type="button" class="close" data-dismiss="alert">&times;</button>
+        		@message
+        	</div>
+        }
+        
+        <div class="control-group">
+			<div class="controls" id="runnumber_field">
+			    <label for="runnumber">RUN</label>
+			    <div class="input-append"> 
+			    	<input type="text" id="@form("runnumber").id" name="@form("runnumber").name" value="@form("runnumber").value" class="input">
+			    </div>
+			    -
+			    <div class="input-prepend">
+			    	<input type="text" id="@form("rundv").id" name="@form("rundv").name" value="@form("rundv").value" class="input-mini">
+			    </div>
+			</div>
+        </div>
+        
+        <div class="control-group">
+			<div class="controls" id="firstname_field">
+			    <label for="firstname">Nombre</label>
+			    <div class="input"> 
+			    	<input type="text" id="@form("firstname").id" name="@form("firstname").name" value="@form("firstname").value" class="input-xlarge">
+			    </div>
+			</div>
+        </div>
+        
+        <div class="control-group">
+			<div class="controls" id="primarylastname_field">
+			    <label for="primarylastname">Apellido Paterno</label>
+			    <div class="input">
+			    	<input type="text" id="@form("primarylastname").id" name="@form("primarylastname").name" value="@form("primarylastname").value" class="input-xlarge">
+			    </div>
+			</div>
+        </div>
+        
+        <div class="control-group">
+			<div class="controls" id="secondlastname_field">
+			    <label for="secondlastname">Apellido Materno</label>
+			    <div class="input">
+			    	<input type="text" id="@form("secondlastname").id" name="@form("secondlastname").name" value="@form("secondlastname").value" class="input-xlarge">
+			    </div>
+			</div>
+        </div>
+        
+        <div class="control-group">
+			<div class="controls" id="genre_field">
+			    <label for="genre">Genero</label>
+			    <div class="input">
+			        <select id="@form("genre").id" class="input-xlarge" name="@form("genre").name">
+			            @genres.map { v =>
+			                <option value="@v" @(if(form("genre").value == Some(v)) "selected" else "")>@v</option>
+			            }
+			        </select>
+			    </div>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<div class="controls" id="birth_field">
+			    <label for="birth">Fecha de Nacimiento</label>
+			    <div class="input-append date" id="dp-birth" data-date-format="yyyy-mm-dd">
+				  <input type="text" id="@form("birth").id" name="@form("birth").name" value="@form("birth").value" class="input-xlarge">
+				  <span class="add-on"><i class="icon-th"></i></span>
+				</div>
+			    
+			</div>
+        </div>
+        
+        <div class="control-group">
+			<div class="controls" id="nationality_field">
+			    <label for="nationality">Nacionalidad</label>
+			    <div class="input">
+			    	<select id="@form("nationality").id" class="input-xlarge" name="@form("nationality").name">
+			            @nationalities.map { v =>
+			                <option value="@v" @(if(form("nationality").value == Some(v)) "selected" else "")>@v</option>
+			            }
+			        </select>
+			    </div>
+			</div>
+        </div>
+		
+  		<p>
+  			<div class="controls">
+	    		<button type="submit" id="btn-form-person" class="btn btn-lg btn-primary">Submit</button>
+	    	</div>
+		</p>
+	
+	</form> 

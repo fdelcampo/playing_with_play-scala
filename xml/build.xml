@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<project name="TDU" basedir="." default="schemas">
+  
+  <property name="src.dir" value="src"/>
+  <property name="jar.name" value="tduschemas.jar"/>
+  <property name="schemas.dir" value="schemas"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="name" value="TDU"/>
+
+  <path id="master-classpath">
+    <pathelement path="${build.dir}"/>
+    <fileset dir="${lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <taskdef name="xmlbean" classname="org.apache.xmlbeans.impl.tool.XMLBean" classpathref="master-classpath">  
+  </taskdef>
+	
+  <target name="clean">
+  	<delete dir="${src.dir}"/>
+  	<delete file="../${lib.dir}/${jar.name}" />
+  </target>
+
+  <target name="schemas" depends="clean">  
+    <xmlbean schema="schemas" destfile="../${lib.dir}/${jar.name}" srcgendir="${src.dir}" classpathref="master-classpath" debug="on">
+      <fileset dir="${schemas.dir}">
+        <include name="*.xsd"/>
+      </fileset>
+    </xmlbean>  
+  </target>
+
+</project>

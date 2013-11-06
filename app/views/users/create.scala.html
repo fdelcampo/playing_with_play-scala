@@ -1,0 +1,53 @@
+@(form: Form[User])(implicit flash: Flash)
+
+		
+	<form id="form-user" action="@routes.Users.addUser" method="POST" class="form-horizontal">
+	
+		@form.globalError.map { error =>
+		    <div class="alert alert-error">
+		    	<button type="button" class="close" data-dismiss="alert">&times;</button>
+		        @error.message
+		    </div>
+		}
+		@flash.get("success").map { message =>
+        	<div class="alert alert-success">
+        		<button type="button" class="close" data-dismiss="alert">&times;</button>
+        		@message
+        	</div>
+        }
+        
+        <div class="control-group">
+			<div class="controls" id="email_field">
+			    <label for="email">Email</label>
+			    <div class="input"> 
+			    	<input type="email" id="@form("email").id" name="@form("email").name" value="@form("email").value" class="input-xlarge">
+			    </div>
+			</div>
+        </div>
+        
+        <div class="control-group">
+			<div class="controls" id="name_field">
+			    <label for="name">Nombre</label>
+			    <div class="input">
+			    	<input type="text" id="@form("name").id" name="@form("name").name" value="@form("name").value" class="input-xlarge">
+			    </div>
+			</div>
+        </div>
+        
+        <div class="control-group">
+			<div class="controls" id="password_field">
+			    <label for="password">Constraseña</label>
+			    <div class="input">
+			    	<input type="text" id="@form("password").id" name="@form("password").name" value="@form("password").value" class="input-xlarge">
+			    </div>
+			</div>
+        </div>
+
+  		<p>
+  			<div class="controls">
+	    		<button type="submit" id="btn-form-user" class="btn btn-lg btn-primary">Submit</button>
+	    	</div>
+		</p>
+	
+	</form> 
+

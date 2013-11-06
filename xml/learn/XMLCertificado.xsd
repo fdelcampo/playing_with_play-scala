@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:tns="http://www.example.org/XMLCertificado/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/XMLCertificado/">
+
+    <xsd:complexType name="Diploma">
+    	<xsd:sequence>
+    		<xsd:element name="Estudiante" type="tns:EstudianteType"
+    			minOccurs="1" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="ID" type="xsd:int"></xsd:element>
+    		<xsd:element name="FechaGeneracion" type="xsd:dateTime"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+
+    
+
+
+
+
+
+
+    <xsd:complexType name="EstudianteType">
+    	<xsd:sequence>
+    		<xsd:element name="NoteMessages" type="tns:NoteMessagesType"
+    			minOccurs="0" maxOccurs="unbounded">
+    			<xsd:annotation>
+    				<xsd:documentation>
+    					Additional information about the student type
+    				</xsd:documentation>
+    			</xsd:annotation>
+    		</xsd:element>
+    		<xsd:element name="Persona" type="tns:PersonaType" minOccurs="1" maxOccurs="1"></xsd:element>
+    		<xsd:element name="RegistroAcademico" type="tns:RegistroAcademicoType" minOccurs="1" maxOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="NameType">
+    	<xsd:sequence>
+    		<xsd:element name="PrimerNombre" type="tns:PrimerNombreType"
+    			minOccurs="0" maxOccurs="1">
+    			<xsd:annotation>
+    				<xsd:documentation>
+    					The first name of the person,usually given at
+    					birth,baptism,suring another ceremony, or
+    					through legal change
+    				</xsd:documentation>
+    			</xsd:annotation>
+    		</xsd:element>
+    		<xsd:element name="ApellidoPaterno" type="tns:ApellidoPaternoType"
+    			minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="ApellidoMaterno"
+    			type="tns:ApellidoMaternoType" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="Nombres" minOccurs="1" maxOccurs="10" type="tns:NombresType">
+    		</xsd:element>
+            <xsd:element name="NoteMessages" type="tns:NoteMessagesType" minOccurs="0" maxOccurs="unbounded">
+    			<xsd:annotation>
+    				<xsd:documentation>
+    					Additional information about the name type
+    				</xsd:documentation>
+    			</xsd:annotation>
+    		</xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+
+
+
+
+    <xsd:simpleType name="NoteMessagesType">
+        <xsd:annotation>
+        	<xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="80"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="PersonaType">
+    	<xsd:sequence>
+    		<xsd:element name="Nombre" type="tns:NameType" minOccurs="1"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="Run" type="tns:RunType" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="Pasaporte" type="xsd:string"
+    			minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="Genero" type="tns:GeneroType"
+    			minOccurs="1" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="FechaNacimiento" minOccurs="1"
+    			maxOccurs="1" type="xsd:date">
+    			<xsd:annotation>
+    				<xsd:documentation>YYYY-MM-DD</xsd:documentation>
+    			</xsd:annotation>
+    		</xsd:element>
+    		<xsd:element name="Nacionalidad" type="tns:CountryCodeType" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RunType">
+        <xsd:annotation>
+        	<xsd:documentation>Nombre Esquema: Run Tipo Esquema: Basal Descripcion: Este esquema define los elementos que componen el elemento identificador para los ciudadanos de Chile, este identificador es el Rol Unico Nacional (RUN). Descripción Campos: - numero: corresponde a un número entero positivo. - dv: corresponde al dígito verificador, pudiendo tomar un valor entre el 0-9 o el caracter &quot;K&quot;. Observaciones: * Este esquema se utiliza indistamente para RUN y RUT (Rol único Tributario).</xsd:documentation></xsd:annotation>
+        <xsd:sequence>
+        	<xsd:element name="Number" minOccurs="1" maxOccurs="1">
+        		<xsd:simpleType>
+        			<xsd:restriction base="xsd:positiveInteger">
+        				<xsd:maxInclusive value="99999999" />
+        			</xsd:restriction>
+        		</xsd:simpleType>
+        	</xsd:element>
+        	<xsd:element name="Dv" minOccurs="1" maxOccurs="1">
+        		<xsd:simpleType>
+        			<xsd:restriction base="xsd:token">
+        				<xsd:pattern value="(\d|k|K)" />
+        			</xsd:restriction>
+        		</xsd:simpleType>
+        	</xsd:element>
+        	<xsd:element name="NoteMessages" type="tns:NoteMessagesType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+
+
+    <xsd:complexType name="RegistroAcademicoType">
+    	<xsd:sequence>
+            <xsd:element name="Escuela" type="tns:EscuelaType" minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+            <xsd:element name="AnoGraduacion" type="tns:AnoGraduacionType">
+    		</xsd:element>
+            <xsd:element name="LogroAcademico"
+    			type="tns:LogroAcademicoType" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</xsd:element>
+    		<xsd:element name="NoteMessages" type="tns:NoteMessagesType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:simpleType name="ApellidoMaternoType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ApellidoPaternoType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PrimerNombreType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="NombresType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:complexType name="LogroAcademicoType">
+    	<xsd:sequence>
+    		<xsd:element name="GradoLogroAcademico"
+    			type="tns:GradoLogroAcademicoType">
+    		</xsd:element>
+    		<xsd:element name="FechaLogroAcademico"
+    			type="tns:FechaLogroAcademicoType">
+    		</xsd:element>
+    		<xsd:element name="TituloLogroAcademico"
+    			type="tns:TituloLogroAcademicoType">
+    		</xsd:element>
+    		<xsd:element name="HonorAcademico"
+    			type="tns:HonorAcademicoType" minOccurs="0"
+    			maxOccurs="unbounded">
+    		</xsd:element>
+    		<xsd:element name="IndicadorCompletitudAcademico"
+    			type="tns:IndicadorCompletitudAcademicoType" minOccurs="1"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="FechaCompletitudAcademico"
+    			type="tns:FechaCompletitudAcademicoType" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+            <xsd:element name="NotaEgreso" type="xsd:float"></xsd:element>
+            <xsd:element name="NoteMessages" type="tns:NoteMessagesType"
+    			minOccurs="0" maxOccurs="unbounded">
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="GradoLogroAcademicoType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="HonorAcademicoType">
+    	<xsd:sequence>
+    		<xsd:element name="TituloHonor"
+    			type="tns:ReconocimientoTituloHonorType" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="GradoHonor"
+    			type="tns:ReconocimientoGradoHonorType" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="NoteMessage" type="tns:NoteMessagesType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+
+    <xsd:complexType name="ReconocimentoGradoHonor"></xsd:complexType>
+
+
+    <xsd:complexType name="EscuelaType">
+    	<xsd:sequence>
+    		<xsd:element name="NombreOrganizacion"
+    			type="tns:NombreOrganizacionType">
+    		</xsd:element>
+    		<xsd:element name="Contacto" type="tns:ContactoType" minOccurs="0" maxOccurs="1"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:simpleType name="FechaCompletitudAcademicoType">
+    	<xsd:restriction base="xsd:date"></xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:simpleType name="TituloLogroAcademicoType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="400"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ReconocimientoTituloHonorType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="30"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ReconocimientoGradoHonorType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="FirstHighest"></xsd:enumeration>
+    		<xsd:enumeration value="SecondHighest"></xsd:enumeration>
+    		<xsd:enumeration value="ThirdHighest"></xsd:enumeration>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ProgramaLogroAcademicoType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FechaLogroAcademicoType">
+    	<xsd:restriction base="xsd:date"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IndicadorCompletitudAcademicoType">
+    	<xsd:restriction base="xsd:boolean">
+    		<xsd:enumeration value="Terminal"></xsd:enumeration>
+    		<xsd:enumeration value="No Terminal"></xsd:enumeration>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="GeneroType">
+    	<xsd:sequence>
+    		<xsd:element name="CodigoGenero">
+    			<xsd:simpleType>
+    				<xsd:restriction base="tns:CodigoGeneroType">
+    					<xsd:enumeration value="Femenino"></xsd:enumeration>
+    					<xsd:enumeration value="Masculino"></xsd:enumeration>
+    				</xsd:restriction>
+    			</xsd:simpleType>
+    		</xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="CodigoGeneroType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="Masculino"></xsd:enumeration>
+    		<xsd:enumeration value="Femenino"></xsd:enumeration>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AnoGraduacionType">
+    	<xsd:restriction base="xsd:gYear"></xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:simpleType name="CodigoNivelEstudianteType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="Masters"></xsd:enumeration>
+    		<xsd:enumeration value="Doctoral"></xsd:enumeration>
+    		<xsd:enumeration value="Postdoctoral"></xsd:enumeration>
+    		<xsd:enumeration value="Pregrado"></xsd:enumeration>
+    		<xsd:enumeration value="Postgrado"></xsd:enumeration>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="NombreOrganizacionType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="60"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="ContactoType">
+    	<xsd:sequence>
+    		<xsd:element name="Direccion" type="tns:DireccionType"></xsd:element>
+    		<xsd:element name="Telefono" type="tns:PhoneType"></xsd:element>
+    		<xsd:element name="Email" type="tns:EmailType"></xsd:element>
+    		<xsd:element name="URL" type="tns:URLType"></xsd:element>
+    		<xsd:element name="NoteMessage" type="tns:NoteMessagesType"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="AddressType">
+    	<xsd:sequence>
+    		<xsd:element name="NewElement" type="xsd:string"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="PhoneType">
+    	<xsd:sequence>
+    		<xsd:element name="CountryPrefixCode"
+    			type="tns:CountryPrefixCodeType" minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="AreaCityCode" type="tns:AreaCityCodeType"
+    			minOccurs="0" maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="PhoneNumber"
+    			type="tns:PhoneNumberType">
+    		</xsd:element>
+    		<xsd:element name="PhoneNumberExtension"
+    			type="tns:PhoneNumberExtensionType" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="EffectiveDate"
+    			type="tns:AddressEffectiveDateType" minOccurs="0">
+    		</xsd:element>
+    		<xsd:element name="ExpirationDate"
+    			type="tns:AddressExpirationDateType" minOccurs="0"
+    			maxOccurs="1">
+    		</xsd:element>
+    		<xsd:element name="NoteMessage" type="tns:NoteMessagesType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="EmailType">
+    	<xsd:sequence>
+    		<xsd:element name="EmailAddress"
+    			type="tns:EmailAddressType">
+                <xsd:annotation>
+                	<xsd:documentation>The numbers, letters, and symbols used to identify an electronic mail (Email) user within a network.</xsd:documentation></xsd:annotation>
+    		</xsd:element>
+    		<xsd:element name="NoteMessages" type="tns:NoteMessagesType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="URLType">
+    	<xsd:sequence>
+    		<xsd:element name="URLAddress" type="tns:URLAddressType"></xsd:element>
+    		<xsd:element name="NoteMessages" type="tns:NoteMessagesType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+    	</xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="URLAddressType">
+        <xsd:annotation>
+        	<xsd:documentation>The Uniform Resource Locator (URL) address associated with a product, deliverable or contact.</xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+    		<xsd:minLength value="0"></xsd:minLength>
+    		<xsd:maxLength value="512"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="EmailAddressType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="128"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CountryPrefixCodeType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="3"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AreaCityCodeType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="5"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PhoneNumberType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="11"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PhoneNumberExtensionType">
+    	<xsd:restriction base="xsd:string">
+    		<xsd:minLength value="1"></xsd:minLength>
+    		<xsd:maxLength value="5"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AddressEffectiveDateType">
+    	<xsd:restriction base="xsd:date"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AddressExpirationDateType">
+    	<xsd:restriction base="xsd:date"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="DireccionType">
+        <xsd:annotation>
+        	<xsd:documentation></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+    		<xsd:element name="AddressLine" type="tns:AddressLineType" minOccurs="1" maxOccurs="3"></xsd:element>
+    		<xsd:element name="City" type="tns:CityType"></xsd:element>
+    		<xsd:element name="StateProvince" type="tns:StateProvinceType"></xsd:element>
+    		<xsd:element name="CountryCode" type="tns:CountryCodeType">
+    		</xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="AddressLineType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CityType">
+    	<xsd:restriction base="xsd:string"></xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:simpleType name="StateProvinceType">
+        <xsd:annotation>
+        	<xsd:documentation>The literal name of the state, province or terriotory of a postal address.</xsd:documentation></xsd:annotation>
+        <xsd:restriction base="xsd:string">
+    		<xsd:minLength value="2"></xsd:minLength>
+    		<xsd:maxLength value="30"></xsd:maxLength>
+    	</xsd:restriction>
+    </xsd:simpleType>
+
+
+    <xsd:simpleType name="CountryCodeType">
+    	<xsd:annotation>
+    		<xsd:documentation>
+    			Code indicaticating Country. Use ISO 3166-1 alpha-2
+    			standard. The codes are available at http://www.iso.org
+    			AD - Andorra AE - United Arab Emirates AF - Afghanistan
+    			AG - Antigua And Barbuda AI - Anguilla AL - Albania AM -
+    			Armenia AN - Netherlands Antilles AO - Angola AQ -
+    			Antarctica AR - Argentina AS - American Samoa AT -
+    			Austria AU - Australia AW - Aruba AX - Aland Islands AZ
+    			- Azerbaijan BA - Bosnia And Herzegovina BB - Barbados
+    			BD - Bangladesh BE - Belgium BF - Burkina Faso BG -
+    			Bulgaria BH - Bahrain BI - Burundi BJ - Benin BL - Saint
+    			Barthelemy BM - Bermuda BN - Brunei Darussalam BO -
+    			Bolivia BR - Brazil BS - Bahamas BT - Bhutan BV - Bouvet
+    			Island BW - Botswana BY - Belarus BZ - Belize CA -
+    			Canada CC - Cocos (Keeling) Islands CD - Congo, The
+    			Democratic Republic Of The CF - Central African Republic
+    			CG - Congo CH - Switzerland CI - Cote D'ivoire CK - Cook
+    			Islands CL - Chile CM - Cameroon CN - China CO -
+    			Colombia CR - Costa Rica CS - Serbia And Montenegro
+    			{REMOVE FROM FUTURE RELEASE} CU - Cuba CV - Cape Verde
+    			CX - Christmas Island CY - Cyprus CZ - Czech Republic DE
+    			- Germany DJ - Djibouti DK - Denmark DM - Dominica DO -
+    			Dominican Republic DZ - Algeria EC - Ecuador EE -
+    			Estonia EG - Egypt EH - Western Sahara ER - Eritrea ES -
+    			Spain ET - Ethiopia FI - Finland FJ - Fiji FK - Falkland
+    			Islands (Malvinas) FM - Micronesia, Federated States Of
+    			FO - Faroe Islands FR - France GA - Gabon GB - United
+    			Kingdom GD - Grenada GE - Georgia GF - French Guiana GG
+    			- Guernsey GH - Ghana GI - Gibraltar GL - Greenland GM -
+    			Gambia GN - Guinea GP - Guadeloupe GQ - Equatorial
+    			Guinea GR - Greece GS - South Georgia And The South
+    			Sandwich Islands GT - Guatemala GU - Guam GW - Guinea -
+    			Bissau GY - Guyana HK - Hong Kong HM - Heard Island And
+    			Mcdonald Islands HN - Honduras HR - Croatia HT - Haiti
+    			HU - Hungary ID - Indonesia IE - Ireland IL - Israel IM
+    			- Isle of Man IN - India IO - British Indian Ocean
+    			Territory IQ - Iraq IR - Iran, Islamic Republic Of IS -
+    			Iceland IT - Italy JE - Jersey JM - Jamaica JO - Jordan
+    			JP - Japan KE - Kenya KG - Kyrgyzstan KH - Cambodia KI -
+    			Kiribati KM - Comoros KN - Saint Kitts And Nevis KP -
+    			Korea, Democratic People's Republic Of KR - Korea,
+    			Republic Of KW - Kuwait KY - Cayman Islands KZ -
+    			Kazakhstan LA - Lao People's Democratic Republic LB -
+    			Lebanon LC - Saint Lucia LI - Liechtenstein LK - Sri
+    			Lanka LR - Liberia LS - Lesotho LT - Lithuania LU -
+    			Luxembourg LV - Latvia LY - Libyan Arab Jamahiriya MA -
+    			Morocco MC - Monaco MD - Moldova, Republic Of ME -
+    			Montenegro MF - Saint Martin MG - Madagascar MH -
+    			Marshall Islands MK - Macedonia, The Former Yugoslav
+    			Republic Of ML - Mali MM - Myanmar MN - Mongolia MO -
+    			Macao MP - Northern Mariana Islands MQ - Martinique MR -
+    			Mauritania MS - Montserrat MT - Malta MU - Mauritius MV
+    			- Maldives MW - Malawi MX - Mexico MY - Malaysia MZ -
+    			Mozambique NA - Namibia NC - New Caledonia NE - Niger NF
+    			- Norfolk Island NG - Nigeria NI - Nicaragua NL -
+    			Netherlands NO - Norway NP - Nepal NR - Nauru NU - Niue
+    			NZ - New Zealand OM - Oman PA - Panama PE - Peru PF -
+    			French Polynesia PG - Papua New Guinea PH - Philippines
+    			PK - Pakistan PL - Poland PM - Saint Pierre And Miquelon
+    			PN - Pitcairn PR - Puerto Rico PS - Palestinian
+    			Territory, Occupied PT - Portugal PW - Palau PY -
+    			Paraguay QA - Qatar RE - Reunion RO - Romania RS -
+    			Serbia RU - Russian Federation RW - Rwanda SA - Saudi
+    			Arabia SB - Solomon Islands SC - Seychelles SD - Sudan
+    			SE - Sweden SG - Singapore SH - Saint Helena SI -
+    			Slovenia SJ - Svalbard And Jan Mayen SK - Slovakia SL -
+    			Sierra Leone SM - San Marino SN - Senegal SO - Somalia
+    			SR - Suriname ST - Sao Tome And Principe SV - El
+    			Salvador SY - Syrian Arab Republic SZ - Swaziland TC -
+    			Turks And Caicos Islands TD - Chad TF - French Southern
+    			Territories TG - Togo TH - Thailand TJ - Tajikistan TK -
+    			Tokelau TL - Timor - Leste TM - Turkmenistan TN -
+    			Tunisia TO - Tonga TR - Turkey TT - Trinidad And Tobago
+    			TV - Tuvalu TW - Taiwan, Province Of China TZ -
+    			Tanzania, United Republic Of UA - Ukraine UG - Uganda UM
+    			- United States Minor Outlying Islands US - United
+    			States UY - Uruguay UZ - Uzbekistan VA - Holy See
+    			(Vatican City State) VC - Saint Vincent And The
+    			Grenadines VE - Venezuela VG - Virgin Islands, British
+    			VI - Virgin Islands, U.S. VN - Viet Nam VU - Vanuatu WF
+    			- Wallis And Futuna WS - Samoa YE - Yemen YT - Mayotte
+    			ZA - South Africa ZM - Zambia ZW - Zimbabwe
+    		</xsd:documentation>
+    	</xsd:annotation>
+    	<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="AD" />
+    		<xsd:enumeration value="AE" />
+    		<xsd:enumeration value="AF" />
+    		<xsd:enumeration value="AG" />
+    		<xsd:enumeration value="AI" />
+    		<xsd:enumeration value="AL" />
+    		<xsd:enumeration value="AM" />
+    		<xsd:enumeration value="AN" />
+    		<xsd:enumeration value="AO" />
+    		<xsd:enumeration value="AQ" />
+    		<xsd:enumeration value="AR" />
+    		<xsd:enumeration value="AS" />
+    		<xsd:enumeration value="AT" />
+    		<xsd:enumeration value="AU" />
+    		<xsd:enumeration value="AW" />
+    		<xsd:enumeration value="AX" />
+    		<xsd:enumeration value="AZ" />
+    		<xsd:enumeration value="BA" />
+    		<xsd:enumeration value="BB" />
+    		<xsd:enumeration value="BD" />
+    		<xsd:enumeration value="BE" />
+    		<xsd:enumeration value="BF" />
+    		<xsd:enumeration value="BG" />
+    		<xsd:enumeration value="BH" />
+    		<xsd:enumeration value="BI" />
+    		<xsd:enumeration value="BJ" />
+    		<xsd:enumeration value="BL" />
+    		<xsd:enumeration value="BM" />
+    		<xsd:enumeration value="BN" />
+    		<xsd:enumeration value="BO" />
+    		<xsd:enumeration value="BR" />
+    		<xsd:enumeration value="BS" />
+    		<xsd:enumeration value="BT" />
+    		<xsd:enumeration value="BV" />
+    		<xsd:enumeration value="BW" />
+    		<xsd:enumeration value="BY" />
+    		<xsd:enumeration value="BZ" />
+    		<xsd:enumeration value="CA" />
+    		<xsd:enumeration value="CC" />
+    		<xsd:enumeration value="CD" />
+    		<xsd:enumeration value="CF" />
+    		<xsd:enumeration value="CG" />
+    		<xsd:enumeration value="CH" />
+    		<xsd:enumeration value="CI" />
+    		<xsd:enumeration value="CK" />
+    		<xsd:enumeration value="CL" />
+    		<xsd:enumeration value="CM" />
+    		<xsd:enumeration value="CN" />
+    		<xsd:enumeration value="CO" />
+    		<xsd:enumeration value="CR" />
+    		<xsd:enumeration value="CS" />
+    		<xsd:enumeration value="CU" />
+    		<xsd:enumeration value="CV" />
+    		<xsd:enumeration value="CX" />
+    		<xsd:enumeration value="CY" />
+    		<xsd:enumeration value="CZ" />
+    		<xsd:enumeration value="DE" />
+    		<xsd:enumeration value="DJ" />
+    		<xsd:enumeration value="DK" />
+    		<xsd:enumeration value="DM" />
+    		<xsd:enumeration value="DO" />
+    		<xsd:enumeration value="DZ" />
+    		<xsd:enumeration value="EC" />
+    		<xsd:enumeration value="EE" />
+    		<xsd:enumeration value="EG" />
+    		<xsd:enumeration value="EH" />
+    		<xsd:enumeration value="ER" />
+    		<xsd:enumeration value="ES" />
+    		<xsd:enumeration value="ET" />
+    		<xsd:enumeration value="FI" />
+    		<xsd:enumeration value="FJ" />
+    		<xsd:enumeration value="FK" />
+    		<xsd:enumeration value="FM" />
+    		<xsd:enumeration value="FO" />
+    		<xsd:enumeration value="FR" />
+    		<xsd:enumeration value="GA" />
+    		<xsd:enumeration value="GB" />
+    		<xsd:enumeration value="GD" />
+    		<xsd:enumeration value="GE" />
+    		<xsd:enumeration value="GF" />
+    		<xsd:enumeration value="GG" />
+    		<xsd:enumeration value="GH" />
+    		<xsd:enumeration value="GI" />
+    		<xsd:enumeration value="GL" />
+    		<xsd:enumeration value="GM" />
+    		<xsd:enumeration value="GN" />
+    		<xsd:enumeration value="GP" />
+    		<xsd:enumeration value="GQ" />
+    		<xsd:enumeration value="GR" />
+    		<xsd:enumeration value="GS" />
+    		<xsd:enumeration value="GT" />
+    		<xsd:enumeration value="GU" />
+    		<xsd:enumeration value="GW" />
+    		<xsd:enumeration value="GY" />
+    		<xsd:enumeration value="HK" />
+    		<xsd:enumeration value="HM" />
+    		<xsd:enumeration value="HN" />
+    		<xsd:enumeration value="HR" />
+    		<xsd:enumeration value="HT" />
+    		<xsd:enumeration value="HU" />
+    		<xsd:enumeration value="ID" />
+    		<xsd:enumeration value="IE" />
+    		<xsd:enumeration value="IL" />
+    		<xsd:enumeration value="IM" />
+    		<xsd:enumeration value="IN" />
+    		<xsd:enumeration value="IO" />
+    		<xsd:enumeration value="IQ" />
+    		<xsd:enumeration value="IR" />
+    		<xsd:enumeration value="IS" />
+    		<xsd:enumeration value="IT" />
+    		<xsd:enumeration value="JE" />
+    		<xsd:enumeration value="JM" />
+    		<xsd:enumeration value="JO" />
+    		<xsd:enumeration value="JP" />
+    		<xsd:enumeration value="KE" />
+    		<xsd:enumeration value="KG" />
+    		<xsd:enumeration value="KH" />
+    		<xsd:enumeration value="KI" />
+    		<xsd:enumeration value="KM" />
+    		<xsd:enumeration value="KN" />
+    		<xsd:enumeration value="KP" />
+    		<xsd:enumeration value="KR" />
+    		<xsd:enumeration value="KW" />
+    		<xsd:enumeration value="KY" />
+    		<xsd:enumeration value="KZ" />
+    		<xsd:enumeration value="LA" />
+    		<xsd:enumeration value="LB" />
+    		<xsd:enumeration value="LC" />
+    		<xsd:enumeration value="LI" />
+    		<xsd:enumeration value="LK" />
+    		<xsd:enumeration value="LR" />
+    		<xsd:enumeration value="LS" />
+    		<xsd:enumeration value="LT" />
+    		<xsd:enumeration value="LU" />
+    		<xsd:enumeration value="LV" />
+    		<xsd:enumeration value="LY" />
+    		<xsd:enumeration value="MA" />
+    		<xsd:enumeration value="MC" />
+    		<xsd:enumeration value="MD" />
+    		<xsd:enumeration value="ME" />
+    		<xsd:enumeration value="MF" />
+    		<xsd:enumeration value="MG" />
+    		<xsd:enumeration value="MH" />
+    		<xsd:enumeration value="MK" />
+    		<xsd:enumeration value="ML" />
+    		<xsd:enumeration value="MM" />
+    		<xsd:enumeration value="MN" />
+    		<xsd:enumeration value="MO" />
+    		<xsd:enumeration value="MP" />
+    		<xsd:enumeration value="MQ" />
+    		<xsd:enumeration value="MR" />
+    		<xsd:enumeration value="MS" />
+    		<xsd:enumeration value="MT" />
+    		<xsd:enumeration value="MU" />
+    		<xsd:enumeration value="MV" />
+    		<xsd:enumeration value="MW" />
+    		<xsd:enumeration value="MX" />
+    		<xsd:enumeration value="MY" />
+    		<xsd:enumeration value="MZ" />
+    		<xsd:enumeration value="NA" />
+    		<xsd:enumeration value="NC" />
+    		<xsd:enumeration value="NE" />
+    		<xsd:enumeration value="NF" />
+    		<xsd:enumeration value="NG" />
+    		<xsd:enumeration value="NI" />
+    		<xsd:enumeration value="NL" />
+    		<xsd:enumeration value="NO" />
+    		<xsd:enumeration value="NP" />
+    		<xsd:enumeration value="NR" />
+    		<xsd:enumeration value="NU" />
+    		<xsd:enumeration value="NZ" />
+    		<xsd:enumeration value="OM" />
+    		<xsd:enumeration value="PA" />
+    		<xsd:enumeration value="PE" />
+    		<xsd:enumeration value="PF" />
+    		<xsd:enumeration value="PG" />
+    		<xsd:enumeration value="PH" />
+    		<xsd:enumeration value="PK" />
+    		<xsd:enumeration value="PL" />
+    		<xsd:enumeration value="PM" />
+    		<xsd:enumeration value="PN" />
+    		<xsd:enumeration value="PR" />
+    		<xsd:enumeration value="PS" />
+    		<xsd:enumeration value="PT" />
+    		<xsd:enumeration value="PW" />
+    		<xsd:enumeration value="PY" />
+    		<xsd:enumeration value="QA" />
+    		<xsd:enumeration value="RE" />
+    		<xsd:enumeration value="RO" />
+    		<xsd:enumeration value="RS" />
+    		<xsd:enumeration value="RU" />
+    		<xsd:enumeration value="RW" />
+    		<xsd:enumeration value="SA" />
+    		<xsd:enumeration value="SB" />
+    		<xsd:enumeration value="SC" />
+    		<xsd:enumeration value="SD" />
+    		<xsd:enumeration value="SE" />
+    		<xsd:enumeration value="SG" />
+    		<xsd:enumeration value="SH" />
+    		<xsd:enumeration value="SI" />
+    		<xsd:enumeration value="SJ" />
+    		<xsd:enumeration value="SK" />
+    		<xsd:enumeration value="SL" />
+    		<xsd:enumeration value="SM" />
+    		<xsd:enumeration value="SN" />
+    		<xsd:enumeration value="SO" />
+    		<xsd:enumeration value="SR" />
+    		<xsd:enumeration value="ST" />
+    		<xsd:enumeration value="SV" />
+    		<xsd:enumeration value="SY" />
+    		<xsd:enumeration value="SZ" />
+    		<xsd:enumeration value="TC" />
+    		<xsd:enumeration value="TD" />
+    		<xsd:enumeration value="TF" />
+    		<xsd:enumeration value="TG" />
+    		<xsd:enumeration value="TH" />
+    		<xsd:enumeration value="TJ" />
+    		<xsd:enumeration value="TK" />
+    		<xsd:enumeration value="TL" />
+    		<xsd:enumeration value="TM" />
+    		<xsd:enumeration value="TN" />
+    		<xsd:enumeration value="TO" />
+    		<xsd:enumeration value="TR" />
+    		<xsd:enumeration value="TT" />
+    		<xsd:enumeration value="TV" />
+    		<xsd:enumeration value="TW" />
+    		<xsd:enumeration value="TZ" />
+    		<xsd:enumeration value="UA" />
+    		<xsd:enumeration value="UG" />
+    		<xsd:enumeration value="UM" />
+    		<xsd:enumeration value="US" />
+    		<xsd:enumeration value="UY" />
+    		<xsd:enumeration value="UZ" />
+    		<xsd:enumeration value="VA" />
+    		<xsd:enumeration value="VC" />
+    		<xsd:enumeration value="VE" />
+    		<xsd:enumeration value="VG" />
+    		<xsd:enumeration value="VI" />
+    		<xsd:enumeration value="VN" />
+    		<xsd:enumeration value="VU" />
+    		<xsd:enumeration value="WF" />
+    		<xsd:enumeration value="WS" />
+    		<xsd:enumeration value="YE" />
+    		<xsd:enumeration value="YT" />
+    		<xsd:enumeration value="ZA" />
+    		<xsd:enumeration value="ZM" />
+    		<xsd:enumeration value="ZW" />
+    	</xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

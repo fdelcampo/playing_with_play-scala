@@ -1,0 +1,65 @@
+@(title: String, user: User)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" />
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/datepicker.css")" />
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/jquery.validate.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap-datepicker.js")" type="text/javascript" charset="UTF-8"></script>
+        <script src="@routes.Assets.at("javascripts/locales/bootstrap-datepicker.es.js")" type="text/javascript" charset="UTF-8"></script>
+        <script src="@routes.Assets.at("javascripts/main.js")" type="text/javascript"></script>
+        
+        
+    </head>
+    <body>
+    
+    <div class="topbar">
+            <div class="fill">
+                <div class="container">
+
+	                <div class="navbar-header">
+				      <a href="@routes.Application.index" class="nav navbar-nav">Titulos Digitales Universidad de Chile</a>
+                      <p class="navbar-text pull-right">
+                      	  @user.name <span>(@user.email)</span> — <a href="@routes.Auth.logout()">Logout</a>
+                      </p>
+                      
+				    </div>
+
+                	<ul class="nav nav-tabs">
+                		<li class="active"><a href="/home">Home</a></li>
+                		@user.getRoles.map { role => 
+                			<li><a href="@role.route">@role.name</a></li>
+                		}
+					</ul>
+                
+
+                    
+                </div>
+            </div>
+        </div>
+    
+    	<div id="content" class="container">
+    		@content	
+    	</div>
+    	
+    	<div id="modal" class="modal hide fade">
+    		<div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal">&times;</button>
+		    <h3 id="modal-label">Modal</h3>
+		  </div>
+		  <div class="modal-body">
+		  </div>
+    	</div>
+    	
+    	<footer>
+    	</footer>
+    	
+    </body>
+</html>

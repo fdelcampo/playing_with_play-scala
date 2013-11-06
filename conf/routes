@@ -1,0 +1,40 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           					controllers.Application.index
+GET		/home											controllers.Application.welcome
+GET		/importar_titulados								controllers.Application.degrees_admin
+
+
+# Authentication
+GET     /login                      					controllers.Auth.login
+POST    /login                      					controllers.Auth.authenticate
+GET     /logout                     					controllers.Auth.logout
+
+
+# Users
+GET		/usuarios										controllers.Users.list
+GET		/usuarios/crear									controllers.Users.create
+POST	/usuarios										controllers.Users.addUser
+GET		/usuarios/:user_id/addrole/:role_id				controllers.Users.userAddRole(user_id: Long, role_id: Long)
+GET		/usuarios/:user_id/removerole/:role_id			controllers.Users.userRemoveRole(user_id: Long, role_id: Long)
+GET		/usuarios/:user_id								controllers.Users.show(user_id: Long)
+PUT		/usuarios/:user_id								controllers.Users.update(user_id: Long)
+DELETE	/usuarios/:user_id								controllers.Users.delete(user_id: Long)
+
+
+# Persons
+GET		/personas/crear									controllers.Persons.create
+POST	/personas										controllers.Persons.addPerson
+GET		/personas										controllers.Persons.list
+DELETE	/personas/:person_id							controllers.Persons.delete(person_id: Long)
+GET		/personas/:person_id							controllers.Persons.show(person_id: Long)
+PUT		/personas/:person_id							controllers.Persons.update(person_id: Long)
+
+GET		/personas/:person_id/xml						controllers.Persons.showXML(person_id: Long)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
